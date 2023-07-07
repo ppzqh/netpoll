@@ -122,7 +122,11 @@ func (m *manager) Run() (err error) {
 			return
 		}
 		m.polls = append(m.polls, poll)
-		go poll.Wait()
+		go func() {
+			runtime.LockOSThread() // 绑定当前goroutine到一个独立的线程
+			defer runtime.UnlockOSThread()
+			poll.Wait()
+		}()
 	}
 
 	// LoadBalance must be set before calling Run, otherwise it will panic.
