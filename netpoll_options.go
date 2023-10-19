@@ -57,6 +57,10 @@ func DisableGopool() error {
 	return disableGopool()
 }
 
+func PollerExecTask() {
+	pollerExecTask()
+}
+
 // WithOnPrepare registers the OnPrepare method to EventLoop.
 func WithOnPrepare(onPrepare OnPrepare) Option {
 	return Option{func(op *options) {
