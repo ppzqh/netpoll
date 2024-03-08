@@ -102,7 +102,9 @@ func (p *defaultPoll) Wait() (err error) {
 			return err
 		}
 		if n <= 0 {
-			msec = -1
+			if gomaxprocs != 1 {
+				msec = -1
+			}
 			runtime.Gosched()
 			continue
 		}

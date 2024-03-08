@@ -46,9 +46,11 @@ func setLoggerOutput(w io.Writer) {
 // pollmanager manage all pollers
 var pollmanager *manager
 var logger *log.Logger
+var gomaxprocs int
 
 func init() {
-	pollmanager = newManager(runtime.GOMAXPROCS(0)/20 + 1)
+	gomaxprocs = runtime.GOMAXPROCS(0)
+	pollmanager = newManager(gomaxprocs/20 + 1)
 	setLoggerOutput(os.Stderr)
 }
 
